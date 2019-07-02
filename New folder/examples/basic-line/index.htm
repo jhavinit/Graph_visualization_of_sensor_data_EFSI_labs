@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Highstock Example</title>
+
+		<style type="text/css">
+            #container{
+    height: 400px;
+    width: 733px;
+    overflow: hidden;
+}
+            #container1{
+        height: 400px;
+    /* min-width: 310px; */
+    overflow: hidden;
+    width: 600px;
+    float: right;
+    margin-top: -397px;
+}           
+		</style>
+	</head>
+	<body>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="../../code/highstock.js"></script>
+<script src="../../code/modules/exporting.js"></script>
+<script src="../../code/modules/export-data.js"></script>
+<center><h1>e-Yantra Lab Setup Initiative</h1></center>
+<div id="container"></div>
+<div id="container1"></div>
+
+		<script type="text/javascript">
+$.getJSON('http://localhost/blog/data1.json', function (data) {
+    var arr2 = [];
+    for (var i = 0; i < data.length; i++) {
+        var k = 0;
+            var data1 = []
+            data1.push(data[i][k]);
+            k = k + 2; 
+            data1.push(data[i][k]);
+            arr2.push(data1);
+    }
+
+    Highcharts.stockChart('container', {
+        rangeSelector: {
+            selected: 1
+        },
+
+        title: {
+            text: 'TEMPERATURE READINGS'
+        },
+
+        series: [{
+            name: 'Temperature',
+            data: data,
+            tooltip: {
+                valueDecimals: 2
+            }
+        }]
+    });
+
+     Highcharts.stockChart('container1', {
+        rangeSelector: {
+            selected: 1
+        },
+
+        title: {
+            text: 'HUMIDITY READINGS'
+        },
+
+        series: [{
+            name: 'Humidity',
+            data: arr2,
+            tooltip: {
+                valueDecimals: 2
+            }
+        }]
+    });
+});
+
+		</script>
+	</body>
+</html>
