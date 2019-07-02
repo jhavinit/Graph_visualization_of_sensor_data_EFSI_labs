@@ -11,7 +11,7 @@ $.getJSON('http://localhost/blog/data1.json', function (data) {
 
     Highcharts.stockChart('container', {
         rangeSelector: {
-            selected: 1
+            selected: 10
         },
 
         title: {
@@ -29,7 +29,7 @@ $.getJSON('http://localhost/blog/data1.json', function (data) {
 
      Highcharts.stockChart('container1', {
         rangeSelector: {
-            selected: 1
+            selected: 10
         },
 
         title: {
