@@ -1,0 +1,210 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Highstock Example</title>
+
+		<style type="text/css">
+
+		</style>
+	</head>
+	<body>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="../../code/highstock.js"></script>
+<script src="../../code/modules/exporting.js"></script>
+<script src="../../code/modules/export-data.js"></script>
+<!-- <center><h1>Temperature</h1></center> -->
+<div id="container" style="height: 400px; min-width: 310px"></div>
+<br><!-- <center><h1>Humidity</h1></center> -->
+<div id="container1" style="height: 400px; min-width: 310px"></div>
+
+<script type="text/javascript">
+/*var data3 = [[],[]];
+
+function set_data(data){
+data3 = data;
+}  function request_data(){
+console.log("data sent:");
+console.log(data3);
+        return data3;
+    }*/
+// Create the chart
+Highcharts.stockChart('container', {
+    chart: {
+        events: {
+            load: function () {
+                var data1 = [];
+                // set up the updating of the chart each second
+                var series = this.series[0];
+                setInterval(function () {
+
+                //console.log("called");
+                $.getJSON('http://localhost/blog/data1.json', function (data) {
+                    data1 = data;
+                });
+                    var x = (new Date()).getTime(), // current time
+                        y = Math.round(Math.random() * 100);
+                    series.addPoint([data1[0],data1[1]], true, true);
+                }, 1000);
+            }
+        }
+    },
+
+    time: {
+        useUTC: false
+    },
+
+    rangeSelector: {
+        buttons: [{
+            count: 1,
+            type: 'minute',
+            text: '1M'
+        }, {
+            count: 5,
+            type: 'minute',
+            text: '5M'
+        }, {
+            type: 'all',
+            text: 'All'
+        }],
+        inputEnabled: false,
+        selected: 0
+    },
+
+    title: {
+        text: 'Temperature Data'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'Random data',
+        data: (function () {
+            var data = [];
+function readTextFile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                data = JSON.parse(allText);
+            }
+        }
+    }
+    rawFile.send(null);
+}
+readTextFile("http://localhost/blog/data2.txt");
+            /*// generate an array of random data
+            function set_data(data1){
+                for(let i = 0; i < data1.length; i++){
+                    data[i] = data1[i];
+                }    
+            }
+
+        $.getJSON('http://localhost/blog/data2.json', function (data1) {
+                    set_data(data1);
+                    console.log("data returned:");
+                    console.log(data);
+                    return data;
+                });*/
+
+
+             //setTimeout(function(){ p.abort(); }, 10000);
+                //var data = request_data();
+                /*time = (new Date()).getTime(),
+                i;
+
+            for (i = -999; i <= 0; i += 1) {
+                data.push([
+                    time + i * 1000,
+                    Math.round(Math.random() * 100)
+                ]);
+            }*/
+console.log(typeof data);
+console.log(data);
+return data;
+        }())
+    }]
+});
+
+Highcharts.stockChart('container1', {
+    chart: {
+        events: {
+            load: function () {
+                var data1 = [];
+                // set up the updating of the chart each second
+                var series = this.series[0];
+                setInterval(function () {
+
+                //console.log("called");
+                $.getJSON('http://localhost/blog/data1.json', function (data) {
+                    data1 = data;
+                });
+                    var x = (new Date()).getTime(), // current time
+                        y = Math.round(Math.random() * 100);
+                    series.addPoint([data1[0],data1[2]], true, true);
+                }, 1000);
+            }
+        }
+    },
+
+    time: {
+        useUTC: false
+    },
+
+    rangeSelector: {
+        buttons: [{
+            count: 1,
+            type: 'minute',
+            text: '1M'
+        }, {
+            count: 5,
+            type: 'minute',
+            text: '5M'
+        }, {
+            type: 'all',
+            text: 'All'
+        }],
+        inputEnabled: false,
+        selected: 0
+    },
+
+    title: {
+        text: 'Humidity Data'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'Random data',
+        data: (function () {
+            // generate an array of random data
+                       var data = [],
+                time = (new Date()).getTime(),
+                i;
+
+            for (i = -999; i <= 0; i += 1) {
+                data.push([
+                    time + i * 1000,
+                    Math.round(Math.random() * 100)
+                ]);
+            }
+            //console.log(data)
+            return data;
+        }())
+    }]
+});
+
+		</script>
+	</body>
+</html>
