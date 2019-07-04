@@ -40,7 +40,7 @@ Highcharts.stockChart('container', {
                 setInterval(function () {
 
                 //console.log("called");
-                $.getJSON('http://localhost/blog/data1.json', function (data) {
+                $.getJSON('http://8279975a.ngrok.io/data-latest.json', function (data) {
                     data1 = data;
                 });
                     var x = (new Date()).getTime(), // current time
@@ -101,7 +101,7 @@ function readTextFile(file)
     }
     rawFile.send(null);
 }
-readTextFile("http://localhost/blog/data2.txt");
+readTextFile("http://8279975a.ngrok.io/graph-history-temp.txt");
             /*// generate an array of random data
             function set_data(data1){
                 for(let i = 0; i < data1.length; i++){
@@ -128,8 +128,8 @@ readTextFile("http://localhost/blog/data2.txt");
                     Math.round(Math.random() * 100)
                 ]);
             }*/
-console.log(typeof data);
-console.log(data);
+//console.log(typeof data);
+//console.log(data);
 return data;
         }())
     }]
@@ -145,7 +145,7 @@ Highcharts.stockChart('container1', {
                 setInterval(function () {
 
                 //console.log("called");
-                $.getJSON('http://localhost/blog/data1.json', function (data) {
+                $.getJSON('http://8279975a.ngrok.io/data-latest.json', function (data) {
                     data1 = data;
                 });
                     var x = (new Date()).getTime(), // current time
@@ -188,19 +188,26 @@ Highcharts.stockChart('container1', {
     series: [{
         name: 'Random data',
         data: (function () {
-            // generate an array of random data
-                       var data = [],
-                time = (new Date()).getTime(),
-                i;
-
-            for (i = -999; i <= 0; i += 1) {
-                data.push([
-                    time + i * 1000,
-                    Math.round(Math.random() * 100)
-                ]);
+         var data = [];
+function readTextFile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                data = JSON.parse(allText);
             }
-            //console.log(data)
-            return data;
+        }
+    }
+    rawFile.send(null);
+}
+readTextFile("http://8279975a.ngrok.io/graph-history-hum.txt");
+return data;
         }())
     }]
 });
